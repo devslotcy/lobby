@@ -1,0 +1,84 @@
+import React, { useEffect, useRef } from 'react';
+import { View, Animated, StyleSheet, Dimensions } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import Svg, { Path } from 'react-native-svg';
+
+const { width, height } = Dimensions.get('window');
+
+// Lobby logo — beyaz renkte (orijinal #FC0F6E → white)
+const LobbyLogo = ({ color = '#FFFFFF', logoWidth = 220 }) => {
+  const aspectRatio = 156 / 481;
+  const logoHeight = logoWidth * aspectRatio;
+  return (
+    <Svg width={logoWidth} height={logoHeight} viewBox="0 0 481 156" fill="none">
+      <Path d="M49.2278 16.6208C52.426 34.9443 47.8952 70.675 45.2301 86.25C46.5627 86.25 50.6327 82.5852 65.6629 82.5852C85.6516 82.5852 97.6448 88.9985 100.754 104.115C103.863 119.233 90.9819 129.31 58.5558 129.31C26.1298 129.31 10.5831 122.439 3.9202 104.115C-2.74268 85.7919 -0.0775232 42.2736 5.69697 18.4531C11.4715 -5.36736 45.2301 -6.28354 49.2278 16.6208Z" fill={color}/>
+      <Path d="M147.838 42.7317C172.616 42.7317 192.702 62.2155 192.702 86.25C192.702 110.284 172.616 129.768 147.838 129.768C123.061 129.768 102.975 110.284 102.975 86.25C102.975 62.2156 123.061 42.7318 147.838 42.7317ZM148.283 73.8816C139.942 73.8816 133.18 81.06 133.18 89.9148C133.18 98.7695 139.942 105.948 148.283 105.948C156.624 105.948 163.385 98.7695 163.385 89.9148C163.385 81.06 156.624 73.8816 148.283 73.8816Z" fill={color}/>
+      <Path d="M204.652 20.2852C209.094 6.54295 218.899 -1.23743 230.415 1.04639C245.073 3.95346 239.743 23.492 237.078 33.57C234.946 41.6323 234.413 45.7859 234.413 46.8547C245.073 42.732 270.303 39.1588 282.385 57.8484C297.488 81.2108 288.604 112.361 267.283 124.271C245.962 136.182 212.203 127.02 201.987 99.0764C191.771 71.1331 200.21 34.0278 204.652 20.2852ZM245.561 69.3012C236.975 69.3012 230.014 76.4796 230.014 85.3344C230.015 94.1891 236.975 101.367 245.561 101.367C254.147 101.366 261.107 94.1889 261.107 85.3344C261.107 76.4797 254.147 69.3015 245.561 69.3012Z" fill={color}/>
+      <Path d="M303.262 20.2861C307.704 6.5435 317.509 -1.23758 329.025 1.04624C343.683 3.95333 338.353 23.4929 335.688 33.5708C333.556 41.6322 333.023 45.7854 333.023 46.8546C343.684 42.7319 368.914 39.1594 380.996 57.8492C396.098 81.2115 387.214 112.361 365.893 124.271C344.572 136.182 310.814 127.02 300.597 99.0763C290.381 71.133 298.82 34.0287 303.262 20.2861ZM344.171 69.3011C335.585 69.3011 328.625 76.4795 328.625 85.3343C328.625 94.1891 335.585 101.368 344.171 101.368C352.757 101.367 359.717 94.1889 359.717 85.3343C359.717 76.4796 352.757 69.3014 344.171 69.3011Z" fill={color}/>
+      <Path d="M461.438 43.6479C451.844 43.6479 447.668 51.7408 447.224 55.5582C446.336 63.193 446.78 72.5991 446.78 78.4625C446.78 85.7919 444.115 94.4956 435.231 94.4956C428.124 94.4956 426.643 87.1662 426.347 83.5015C426.347 77.8518 425.903 64.2619 425.903 56.9325C425.903 47.7707 418.796 42.7318 409.912 43.6479C403.282 44.3317 392.588 49.6031 392.144 71.1332C391.7 92.6633 394.809 106.405 405.026 115.109C413.199 122.073 428.568 123.508 435.231 123.355C435.675 123.813 436.297 125.005 435.231 126.104C433.898 127.478 427.68 129.31 416.575 128.852C405.47 128.394 399.695 133.433 398.807 137.555C397.919 141.678 400.584 154.963 416.575 155.879C432.566 156.796 449.001 152.673 464.103 137.555C479.206 122.439 482.315 79.8368 480.094 66.5523C477.873 53.2678 473.431 43.6479 461.438 43.6479Z" fill={color}/>
+    </Svg>
+  );
+};
+
+const SplashScreen = ({ onFinish }) => {
+  const scale = useRef(new Animated.Value(0.5)).current;
+  const opacity = useRef(new Animated.Value(0)).current;
+  const screenOpacity = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    Animated.sequence([
+      Animated.parallel([
+        Animated.spring(scale, {
+          toValue: 1,
+          tension: 120,
+          friction: 8,
+          useNativeDriver: true,
+        }),
+        Animated.timing(opacity, {
+          toValue: 1,
+          duration: 250,
+          useNativeDriver: true,
+        }),
+      ]),
+      Animated.delay(800),
+      Animated.timing(screenOpacity, {
+        toValue: 0,
+        duration: 250,
+        useNativeDriver: true,
+      }),
+    ]).start(() => {
+      onFinish?.();
+    });
+  }, []);
+
+  return (
+    <Animated.View style={[styles.wrapper, { opacity: screenOpacity }]} pointerEvents="none">
+      <StatusBar style="light" translucent />
+      <View style={styles.container}>
+        <Animated.View style={{ transform: [{ scale }], opacity }}>
+          <LobbyLogo color="#FFFFFF" logoWidth={width * 0.55} />
+        </Animated.View>
+      </View>
+    </Animated.View>
+  );
+};
+
+const styles = StyleSheet.create({
+  wrapper: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 9999,
+    backgroundColor: '#FC0F6E',
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FC0F6E',
+  },
+});
+
+export default SplashScreen;

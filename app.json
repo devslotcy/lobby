@@ -1,0 +1,100 @@
+{
+  "expo": {
+    "name": "Lobby",
+    "slug": "lobby",
+    "scheme": "lobby",
+    "version": "3.3.0",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "plugins": [
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#FC0F6E",
+          "image": "./assets/lobby-splash.png",
+          "imageWidth": 200,
+          "resizeMode": "contain"
+        }
+      ],
+      "@react-native-community/datetimepicker",
+      "expo-web-browser",
+      "expo-localization",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#E94057"
+        }
+      ],
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosClientId": "771170272718-kclrkjqs2ts8c54pbl4sq2k85bupqem9.apps.googleusercontent.com",
+          "iosUrlScheme": "com.googleusercontent.apps.771170272718-kclrkjqs2ts8c54pbl4sq2k85bupqem9"
+        }
+      ],
+      "expo-updates",
+      "expo-apple-authentication"
+    ],
+    "splash": {
+      "image": "./assets/lobby-splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FC0F6E"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "requireFullScreen": true,
+      "bundleIdentifier": "com.getlobby.app",
+      "buildNumber": "53",
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "remote-notification"
+        ],
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "com.getlobby.app",
+      "versionCode": 332,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "permissions": [
+        "RECEIVE_BOOT_COMPLETED",
+        "VIBRATE",
+        "POST_NOTIFICATIONS",
+        "com.google.android.c2dm.permission.RECEIVE",
+        "INTERNET",
+        "ACCESS_NETWORK_STATE"
+      ],
+      "useNextNotificationsApi": true,
+      "googleServicesFile": "./google-services.json",
+      "usesCleartextTraffic": false,
+      "resizeableActivity": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/8d317b22-0ec2-4a83-8cbc-7f5df09a6613",
+      "fallbackToCacheTimeout": 0,
+      "checkAutomatically": "ON_LOAD"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "8d317b22-0ec2-4a83-8cbc-7f5df09a6613"
+      }
+    },
+    "notification": {
+      "androidMode": "default",
+      "androidCollapsedTitle": "#{unread_notifications} new interactions"
+    }
+  }
+}

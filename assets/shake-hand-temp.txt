@@ -1,0 +1,2 @@
+Kanka bu dosyayı silip shake-hand.png isminde gerçek görseli buraya koy.
+Görseli buraya kopyala: mobile/assets/shake-hand.png
